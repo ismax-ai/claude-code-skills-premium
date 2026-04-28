@@ -1,6 +1,8 @@
+![Skills Claude Code Premium](cover.png)
+
 # Skills Claude Code Premium
 
-13 skills Claude Code pour les abonnés de la newsletter [Rédiger et Vendre avec l'IA](https://redigeretvendreavecia.substack.com).
+14 skills Claude Code pour les abonnés de la newsletter [Rédiger et Vendre avec l'IA](https://redigeretvendreavecia.substack.com).
 
 ## Installation
 
