@@ -142,6 +142,94 @@ CLAIMS VÉRIFIÉS (passe 3) :
 /anti-fabrication fichier.md          → analyser un fichier
 ```
 
+## Auto-amélioration : le skill retient tes corrections
+
+Ce skill s'améliore à chaque utilisation. Il ne fait pas du machine learning. Il fait quelque chose de plus simple et de plus fiable : il retient tes corrections dans un fichier local et ajuste sa sensibilité en conséquence.
+
+### Comment ça fonctionne
+
+Au premier audit, le skill crée un dossier `~/.claude/anti-fabrication/` avec 3 fichiers :
+
+```
+~/.claude/anti-fabrication/
+├── log.json       ← historique de chaque audit (append-only)
+├── learned.json   ← patterns appris (précision par détecteur, contextes fiables)
+└── stats.json     ← métriques agrégées
+```
+
+Après chaque rapport, le skill te demande : "Des faux positifs dans ce rapport ?"
+
+Tu réponds en langage naturel. Par exemple : "Le chiffre du paragraphe 2 est correct, il vient du rapport Xerfi 2025." Le skill enregistre cette correction et la classe comme `dismissed_with_source`.
+
+### Ce que le skill retient
+
+Pour chaque détecteur (F01 à F10), le skill calcule sa précision :
+
+```
+précision = (détections confirmées) / (total détections)
+```
+
+Si un détecteur passe en dessous de 50% de précision (plus de faux positifs que de vrais positifs), le skill baisse automatiquement sa sévérité. Il passe de CRITICAL à HIGH, ou de HIGH à MEDIUM. Il ne supprime jamais un détecteur, il ajuste sa sensibilité.
+
+Si tu confirmes qu'un domaine est fiable en fournissant la source 3 fois (par exemple, tu cites toujours les données Xerfi quand tu parles de formation en ligne), le skill crée un contexte de confiance. Il arrête de flagger les chiffres dans ce domaine quand une source est fournie.
+
+Le skill ne baisse jamais sa garde sans preuve. Si tu dis "c'est correct" sans fournir de source, ça ne compte pas comme un contexte de confiance. Seules les corrections avec source alimentent l'apprentissage.
+
+### Le rapport d'amélioration
+
+Après 10 audits, tu peux demander un rapport d'amélioration :
+
+```
+/anti-fabrication stats
+```
+
+Le rapport montre :
+
+```
+ANTI-FABRICATION — Rapport d'amélioration
+═══════════════════════════════════════════
+
+Audits effectués : 10
+Claims analysés : 127
+Détections totales : 34
+Faux positifs confirmés : 6
+
+PRÉCISION PAR DÉTECTEUR :
+  F01 Fait inventé         : 95% (19/20) — FIABLE
+  F03 Attribution          : 88% (7/8)  — FIABLE
+  F07 Fausse précision     : 60% (3/5)  — SENSIBILITÉ BAISSÉE
+  F08 Hypothèse = fait     : 100% (1/1) — PAS ASSEZ DE DONNÉES
+
+CONTEXTES DE CONFIANCE :
+  ✓ "formation en ligne" : source Xerfi confirmée 3x
+    → F01/F07 ajustés dans ce contexte
+
+ÉVOLUTION :
+  Audits 1-5 : 4 faux positifs sur 18 détections (78% précision)
+  Audits 6-10 : 2 faux positifs sur 16 détections (88% précision)
+═══════════════════════════════════════════
+```
+
+### Réinitialisation
+
+Si le skill devient trop permissif ou si tu changes de domaine de travail :
+
+```
+/anti-fabrication reset
+```
+
+Supprime les fichiers learned.json et stats.json. Le log.json est conservé comme historique.
+
+### Usage
+
+```
+/anti-fabrication                → auditer le dernier texte
+/anti-fabrication "texte"        → auditer un texte spécifique
+/anti-fabrication fichier.md     → auditer un fichier
+/anti-fabrication stats          → rapport d'amélioration (après 10+ audits)
+/anti-fabrication reset          → réinitialiser l'apprentissage
+```
+
 ## Ce que ce skill ne fait pas
 
 - Il ne corrige pas le texte automatiquement. Il détecte et propose des corrections que tu valides.
