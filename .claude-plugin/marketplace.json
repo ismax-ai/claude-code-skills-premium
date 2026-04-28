@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ismax-skills-premium",
+  "description": "Skills Claude Code pour les abonnés premium de Rédiger et Vendre avec l'IA. Anti-fabrication, Red Team, Reality Check, et plus. En français.",
+  "owner": {
+    "name": "Ismax",
+    "email": "contact@ismaelalaoui.com"
+  },
+  "plugins": [
+    {
+      "name": "ismax-skills-premium",
+      "description": "14 skills Claude Code premium : anti-fabrication, sentinel, karen, ralph, et plus. En français.",
+      "author": {
+        "name": "Ismax"
+      },
+      "category": "productivity",
+      "source": "./plugins/ismax-skills-premium"
+    }
+  ]
+}
