@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "ismax-skills-premium",
-      "description": "14 skills Claude Code premium : anti-fabrication, sentinel, karen, ralph, et plus. En français.",
+      "description": "15 skills Claude Code premium : anti-fabrication, sentinel, karen, ralph, regarder-video (Claude regarde n'importe quelle video), et plus. En francais.",
       "author": {
         "name": "Ismax"
       },
