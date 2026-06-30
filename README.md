@@ -2,7 +2,7 @@
 
 # Skills Claude Code Premium
 
-14 skills Claude Code pour les abonnés de la newsletter [Rédiger et Vendre avec l'IA](https://redigeretvendreavecia.substack.com).
+15 skills Claude Code pour les abonnés de la newsletter [Rédiger et Vendre avec l'IA](https://redigeretvendreavecia.substack.com).
 
 ## Installation
 
@@ -15,6 +15,8 @@ Clone le repo https://github.com/ismax-ai/claude-code-skills-premium et copie to
 ```
 
 Claude fait le reste.
+
+> Nouveau : `regarder-video` — Claude regarde n'importe quelle vidéo (lien ou fichier) et te répond sur son contenu. Adaptation française du projet MIT `bradautomates/claude-video`.
 
 ### Option 2 : script
 
